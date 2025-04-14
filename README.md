@@ -58,7 +58,7 @@ To run this project locally, follow these steps:
 - **Training Process**: Split data into 80% train and 20% validation sets, scaled features with `StandardScaler`, and saved the model using `joblib`. The process is detailed in `train_classifier.py`.
 
 **Screenshot**:  
-![Checkpoint 1 - Classifier Training](media/checkpoint1_training.png)  
+![Checkpoint 1 - Classifier Training](screenshots/checkpoint1_training.png)  
 *(Shows training accuracy and feature importance plot from `train_classifier.py` output)*
 
 ### Checkpoint 2: Generate Predictions
@@ -70,7 +70,7 @@ To run this project locally, follow these steps:
 - **MAPE**: Calculated using `sklearn.metrics.mean_absolute_percentage_error` to evaluate accuracy.
 
 **Screenshot**:  
-![Checkpoint 2 - Predictions](media/checkpoint2_predictions.png)  
+![Checkpoint 2 - Predictions](screenshots/checkpoint2_predictions.png)  
 *(Displays a plot of actual vs. predicted values with MAPE score from local testing)*
 
 ### Checkpoint 3: REST API
@@ -96,7 +96,7 @@ To run this project locally, follow these steps:
 }
 
 **Screenshot**:  
-![Checkpoint 3 - API_Output](checkpoint2_predictions.png))  
+![Checkpoint 3 - API_Output](screenshots/checkpoint2_predictions.png))  
 
 ### Checkpoint 4: UI
 **Description**: A functional UI using Plotly to upload data, call the API, and plot predictions.
