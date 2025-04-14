@@ -95,6 +95,9 @@ To run this project locally, follow these steps:
   ]
 }
 
+**Screenshot**:  
+![Checkpoint 3 - API_Output](checkpoint2_predictions.png))  
+
 ### Checkpoint 4: UI
 **Description**: A functional UI using Plotly to upload data, call the API, and plot predictions.
 
