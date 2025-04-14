@@ -1,0 +1,13 @@
+services:
+- type: web
+  name: datagenie-hackathon
+  env: python
+  buildCommand: "pip install -r requirements.txt"
+  startCommand: "gunicorn -w 4 -k uvicorn.workers.UvicWorker src.app:app"
+  envVars:
+    - key: DATA_PATH
+      value: data/daily.csv
+    - key: MODEL_DIR
+      value: models
+  regions:
+    - oregon

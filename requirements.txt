@@ -1,1 +1,11 @@
-
+fastapi
+uvicorn
+gunicorn
+pandas
+numpy
+scikit-learn
+statsmodels
+prophet
+imblearn
+joblib
+python-multipart

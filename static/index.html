@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DataGenie Prediction Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; max-width: 1200px; }
+        #plot { width: 100%; height: 500px; }
+        .container { margin-bottom: 20px; }
+        button { padding: 10px 20px; background: #007BFF; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        #result { margin: 10px 0; font-size: 16px; color: #333; }
+        #loading { display: none; margin-top: 10px; color: #666; }
+        #fullResponse { margin-top: 20px; max-height: 300px; overflow-y: auto; background: #f9f9f9; padding: 10px; border: 1px solid #ddd; display: none; }
+        #toggleResponse { margin-bottom: 10px; cursor: pointer; color: #007BFF; }
+    </style>
+</head>
+<body>
+    <h1>DataGenie Time Series Predictor</h1>
+    <div class="container">
+        <input type="file" id="fileInput" accept=".csv">
+        <label for="date_from">From: </label><input type="date" id="date_from" value="2021-06-27">
+        <label for="date_to">To: </label><input type="date" id="date_to" value="2021-07-05">
+        <button id="predictButton" onclick="uploadFile()">Predict</button>
+        <div id="loading">Processing...</div>
+    </div>
+    <div id="result"></div>
+    <div id="plot"></div>
+    <div id="responseSection">
+        <div id="toggleResponse" onclick="toggleResponse()">Show Full Response</div>
+        <pre id="fullResponse"></pre>
+    </div>
+
+    <script>
+        function toggleResponse() {
+            const fullResponse = document.getElementById('fullResponse');
+            const toggle = document.getElementById('toggleResponse');
+            if (fullResponse.style.display === 'none') {
+                fullResponse.style.display = 'block';
+                toggle.textContent = 'Hide Full Response';
+            } else {
+                fullResponse.style.display = 'none';
+                toggle.textContent = 'Show Full Response';
+            }
+        }
+
+        async function uploadFile() {
+            const file = document.getElementById('fileInput').files[0];
+            const date_from = document.getElementById('date_from').value;
+            const date_to = document.getElementById('date_to').value;
+            const resultDiv = document.getElementById('result');
+            const plotDiv = document.getElementById('plot');
+            const loadingDiv = document.getElementById('loading');
+            const predictButton = document.getElementById('predictButton');
+            const fullResponseDiv = document.getElementById('fullResponse');
+
+            if (!file) {
+                resultDiv.innerText = "Error: Please select a CSV file";
+                return;
+            }
+
+            predictButton.disabled = true;
+            loadingDiv.style.display = 'block';
+            resultDiv.innerText = '';
+            plotDiv.innerHTML = '';
+            fullResponseDiv.innerText = '';
+            fullResponseDiv.style.display = 'none';
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:8000/predict' : '/predict';
+            try {
+                const response = await fetch(apiUrl + `?date_from=${date_from}&date_to=${date_to}`, {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) {
+                    const text = await response.text();
+                    throw new Error(`HTTP error! status: ${response.status}, body: ${text}`);
+                }
+                const data = await response.json();
+                console.log('Full response data:', JSON.stringify(data, null, 2));
+                if (data.error) throw new Error(data.error);
+
+                resultDiv.innerText = `Forecastability Score: ${data.forecastability_score.toFixed(1)}, MAPE: ${data.mape.toFixed(4)}`;
+                const results = data.results;
+                if (!results || !results.length) throw new Error("No prediction results available");
+                const timestamps = results.map(r => r.timestamp);
+                const actuals = results.map(r => r.point_value || null);
+                const predicted = results.map(r => r.predicted);
+                const trace1 = { x: timestamps, y: actuals, type: 'scatter', name: 'Actual', mode: 'markers', marker: { size: 8 } };
+                const trace2 = { x: timestamps, y: predicted, type: 'scatter', name: 'Predicted', line: { dash: 'dash' } };
+                Plotly.newPlot(plotDiv, [trace1, trace2], {
+                    title: 'Actual vs Predicted',
+                    xaxis: { title: 'Timestamp' },
+                    yaxis: { title: 'Value' },
+                    legend: { orientation: 'h', y: -0.2 }
+                }, { responsive: true, displayModeBar: false });
+                console.log('Plot rendered successfully');
+
+                // Display full response
+                fullResponseDiv.textContent = JSON.stringify(data, null, 2);
+                fullResponseDiv.style.display = 'block';
+                document.getElementById('toggleResponse').textContent = 'Hide Full Response';
+            } catch (e) {
+                resultDiv.innerText = `Error: ${e.message}`;
+                console.error('Fetch or plot error:', e);
+                if (e.message.includes('400') || e.message.includes('500')) {
+                    alert('Invalid input, file format, or server issue. Check console for details.');
+                }
+            } finally {
+                predictButton.disabled = false;
+                loadingDiv.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
