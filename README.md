@@ -105,7 +105,11 @@ To run this project locally, follow these steps:
 - **UI**: UI: static/index.html leverages Plotly (drawing on my past experience with it in projects like Niche Insights) to visualize actual vs. predicted values. Fetches data via the API and displays full response details.
 
 **Screenshot**:  
-![Checkpoint 2 - Predictions](screenshots/checkpoint4_ui.png)  
+![Checkpoint 4 - Predictions](screenshots/checkpoint4_ui.png)  
 *(Displays a plot of actual vs. predicted values with MAPE score)*
+
+![Response generated](screenshots/response.png)
+*(Displays the respose which includes timespamp, point_value, predicted_value and is_anomaly )*
+
 
 
