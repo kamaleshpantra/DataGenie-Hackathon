@@ -4,7 +4,7 @@
 Check out our video walkthrough [here](https://drive.google.com/file/d/1CG1OigxD5Ngne4s5lnBe2WKpADHDHtE9/view?usp=drive_link) for a detailed explanation of the implementation, including setup instructions, classifier training, API testing, UI demo, and deployment overview. This video is hosted in the `media` folder of this repository.
 
 ## Overview
-This repository contains my individual submission for the DataGenie DS Hackathon - 2025, themed "Data Alchemy - Transforming Raw Data into Golden Insights." DataGenie, founded in 2020, aims to automate analytics and deliver scalable insights, driven by a team with over 80 years of combined data analytics expertise. The hackathon challenges participants to create an efficient time series model selection algorithm to transform raw data into actionable insights, addressing the digital economy’s reliance on intelligent analytics systems. This project completes all four checkpoints, including the bonus UI and deployment, with clear documentation and assumptions.
+This repository contains my individual submission for the DataGenie DS Hackathon - 2025, themed "Data Alchemy - creating an efficient time series model selection algorithm"
 
 ## Assumptions
 - The input time series data (e.g., `daily.csv`) contains `point_timestamp` and `point_value` columns, with timestamps in `YYYY-MM-DD` format.
