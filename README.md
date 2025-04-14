@@ -10,7 +10,6 @@ This repository contains my individual submission for the DataGenie DS Hackathon
 - The input time series data (e.g., `daily.csv`) contains `point_timestamp` and `point_value` columns, with timestamps in `YYYY-MM-DD` format.
 - The classifier is trained on `daily.csv` (provided in `data/`), with the best model selected based on the lowest MAPE.
 - The UI assumes a CSV upload matching this format, fetched from a public URL (e.g., Google Drive) due to deployment constraints.
-- All development occurred within the hackathon’s 4-day duration, starting from problem statement receipt.
 
 ## 🛠️ Setup Instructions
 To run this project locally, follow these steps:
