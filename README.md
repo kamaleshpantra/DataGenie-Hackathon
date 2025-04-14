@@ -1,7 +1,7 @@
 # DataGenie DS Hackathon - 2025 Submission
 
 ## Video Demo
-Check out our video walkthrough [here](https://drive.google.com/file/d/1CG1OigxD5Ngne4s5lnBe2WKpADHDHtE9/view?usp=drive_link) for a detailed explanation of the implementation, including setup instructions, classifier training, API testing, UI demo, and deployment overview. This video is hosted in the `media` folder of this repository.
+Check out our video walkthrough [here](https://drive.google.com/file/d/1CG1OigxD5Ngne4s5lnBe2WKpADHDHtE9/view?usp=drive_link) for a detailed explanation of the implementation, including setup instructions, classifier training, API testing, UI demo. This video is hosted in the `media` folder of this repository.
 
 ## Overview
 This repository contains my individual submission for the DataGenie DS Hackathon - 2025, themed "Data Alchemy - creating an efficient time series model selection algorithm"
